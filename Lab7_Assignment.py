@@ -11,28 +11,57 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for better styling (works in both light and dark mode)
 st.markdown("""
     <style>
-    .main {
-        background-color: #f5f7fa;
+    /* Metric styling that works in both themes */
+    [data-testid="stMetricValue"] {
+        font-size: 1.8rem;
+        font-weight: 600;
     }
-    .stMetric {
-        background-color: #ffffff;
+    
+    [data-testid="stMetricLabel"] {
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+    
+    [data-testid="stMetricDelta"] {
+        font-size: 0.85rem;
+    }
+    
+    /* Ensure metrics are visible in dark mode */
+    [data-testid="metric-container"] {
+        background-color: var(--background-color);
         padding: 15px;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border: 1px solid rgba(128, 128, 128, 0.2);
     }
-    h1 {
-        color: #1f4788;
-        font-weight: 700;
+    
+    /* Light mode specific */
+    @media (prefers-color-scheme: light) {
+        .main {
+            background-color: #f5f7fa;
+        }
+        h1 {
+            color: #1f4788;
+            font-weight: 700;
+        }
+        h2 {
+            color: #2c5aa0;
+            font-weight: 600;
+        }
+        h3 {
+            color: #3d6ab3;
+        }
     }
-    h2 {
-        color: #2c5aa0;
-        font-weight: 600;
-    }
-    h3 {
-        color: #3d6ab3;
+    
+    /* Dark mode specific */
+    @media (prefers-color-scheme: dark) {
+        [data-testid="metric-container"] {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     }
     </style>
     """, unsafe_allow_html=True)
